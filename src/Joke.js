@@ -10,11 +10,11 @@ class Joke extends React.Component {
   }
 
   upVote() {
-    this.props.vote(this.props.id + 1);
+    this.props.vote(this.props.id, +1);
   }
 
   downVote() {
-    this.props.vote(this.props.id - 1);
+    this.props.vote(this.props.id, -1);
   }
 
   render() {
