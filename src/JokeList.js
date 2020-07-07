@@ -43,7 +43,7 @@ class JokeList extends React.Component {
 
         if (!seenJokes.has(jokeObj.id)) {
           seenJokes.add(jokeObj.id);
-          jokeVotes.push({ ...jokeObj, votes: 0 });
+          jokes.push({ ...jokeObj, votes: 0 });
         } else {
           console.log('duplicate joke found!');
         }
