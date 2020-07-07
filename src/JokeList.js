@@ -65,9 +65,9 @@ class JokeList extends React.Component {
     }));
   }
 
-  // generateNewJokes() {
-  //   this.setState((st) => ({ jokes: st.jokes.filter((j) => j.locked) }));
-  // }
+  generateNewJokes() {
+    this.setState((st) => ({ jokes: st.jokes.filter((j) => j.locked) }));
+  }
 
   resetVotes() {
     window.localStorage.setItem('jokeVotes', '{}');
@@ -82,7 +82,9 @@ class JokeList extends React.Component {
     return (
       <div className='JokeList'>
         <button className='JokeList-getmore'>Get New Jokes</button>
-
+        <button className='JokeList-getmore' onClick={this.resetVotes}>
+          Reset votes
+        </button>
         {sortedJokes.map((j) => (
           <Joke text={j.joke} key={j.id} id={j.id} votes={j.votes} vote={this.vote} />
         ))}
