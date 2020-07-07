@@ -5,7 +5,7 @@ import './JokeList.css';
 
 // props = numJokesToGet
 class JokeList extends React.Component {
-  // static defaultProps = {numJokesToGet = 10};
+  static defaultProps = { numJokesToGet: 10 };
 
   constructor(props) {
     super(props);
@@ -13,10 +13,15 @@ class JokeList extends React.Component {
     // this.generateNewJokes = this.generateNewJokes(this);
     this.resetVotes = this.resetVotes.bind(this);
     this.vote = this.vote.bind(this);
+    this.generateNewJokes = this.vote.bind(this);
   }
 
   componentDidMount() {
-    // mount our jokes
+    if (this.state.jokes.length < this.props.numJokesToGet) this.getJokes();
+  }
+
+  componentDidUpdate() {
+    if (this.state.jokes.length < this.props.numJokesToGet) this.getJokes();
   }
 
   // get tge jokes from jokes API
@@ -61,7 +66,7 @@ class JokeList extends React.Component {
   }
 
   // generateNewJokes() {
-  //   this.setState((state) => ({jokes: state.jokes.filter((joke) => joke)}))
+  //   this.setState((st) => ({ jokes: st.jokes.filter((j) => j.locked) }));
   // }
 
   resetVotes() {
@@ -72,11 +77,21 @@ class JokeList extends React.Component {
   }
 
   render() {
-    const { numJokesToGet } = this.props;
+    let sortedJokes = [...this.state.jokes].sort((a, b) => b.votes - a.votes);
 
     return (
       <div className='JokeList'>
         <button className='JokeList-getmore'>Get New Jokes</button>
+
+        {sortedJokes.map((j) => (
+          <Joke text={j.joke} key={j.id} id={j.id} votes={j.votes} vote={this.vote} />
+        ))}
+
+        {sortedJokes.length < this.props.numJokesToGet ? (
+          <div className='loading'>
+            <p>LOADING!</p>
+          </div>
+        ) : null}
       </div>
     );
   }
