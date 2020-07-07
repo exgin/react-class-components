@@ -66,7 +66,7 @@ class JokeList extends React.Component {
   }
 
   generateNewJokes() {
-    this.setState((st) => ({ jokes: st.jokes.filter((j) => j.locked) }));
+    this.setState({ jokes: 0 });
   }
 
   resetVotes() {
